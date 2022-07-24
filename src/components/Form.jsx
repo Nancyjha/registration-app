@@ -4,6 +4,8 @@ function Form() {
   const data = { name: "", email: "", password: "", passwordConfirmation: "" };
   const [input, setInput] = useState(data);
   const [flag, setFlag] = useState(false);
+  //for checkbox TnC
+  const [checkBox, setCheckBox] = useState(false);
   const confirmData = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value })
     console.log(e.target.name)
@@ -17,7 +19,16 @@ function Form() {
       alert('all feilds are required')
     }
     else {
-      setFlag(true)
+      if (input.password !== input.passwordConfirmation) {
+        alert('password must be same')
+
+      } else if (checkBox === false) {
+        alert("Please accept our terms and conditions")
+      }
+      else {
+
+        setFlag(true)
+      }
     }
   }
 
@@ -71,7 +82,8 @@ function Form() {
                         <br />
 
                         <div className="form-check d-flex justify-content-center mb-5">
-                          <input className="form-check-input me-2" type="checkbox" value="" id="form2Example3c" />
+                          {/* //checkbox validation */}
+                          <input className="form-check-input me-2" type="checkbox" value={checkBox} id="form2Example3c" onChange={(e) => setCheckBox(e.target.value)} />
                           <label className="form-check-label" htmlFor="form2Example3">
                             I agree all statements in <a href="/">Terms of service</a>
                           </label>
